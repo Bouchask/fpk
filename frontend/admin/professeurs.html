@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Gérer les Professeurs</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .modal { display: none; }
+        .modal.active { display: flex; }
+    </style>
+</head>
+<body>
+    <div id="page-content">
+        <div class="flex justify-between items-center mb-6">
+            <h1 class="text-3xl font-bold text-gray-800">Gestion des Professeurs</h1>
+            <button id="add-prof-btn" class="bg-indigo-500 text-white px-4 py-2 rounded hover:bg-indigo-600">
+                + Ajouter un Professeur
+            </button>
+        </div>
+        
+        <div class="bg-white p-4 rounded-lg shadow-md">
+            <div id="professeurs-table" class="overflow-x-auto">
+                </div>
+        </div>
+    </div>
+
+    <div id="add-prof-modal" class="modal fixed inset-0 bg-black bg-opacity-50 items-center justify-center">
+        <div class="bg-white p-8 rounded-lg shadow-xl w-full max-w-md">
+            <h2 class="text-2xl font-bold mb-4">Nouveau Professeur</h2>
+            <form id="add-prof-form">
+                <div class="mb-4">
+                    <label for="prof-nom" class="block">Nom</label>
+                    <input type="text" id="prof-nom" class="w-full border p-2 rounded" required>
+                </div>
+                <div class="mb-4">
+                    <label for="prof-prenom" class="block">Prénom</label>
+                    <input type="text" id="prof-prenom" class="w-full border p-2 rounded" required>
+                </div>
+                <div class="mb-4">
+                    <label for="prof-email" class="block">Email</label>
+                    <input type="email" id="prof-email" class="w-full border p-2 rounded" required>
+                </div>
+                 <div class="mb-4">
+                    <label for="prof-password" class="block">Mot de passe (temporaire)</label>
+                    <input type="password" id="prof-password" class="w-full border p-2 rounded" required>
+                </div>
+                <div class="flex justify-end space-x-4 mt-6">
+                    <button type="button" id="cancel-btn" class="bg-gray-300 px-4 py-2 rounded">Annuler</button>
+                    <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Créer</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="assets/js/auth.js"></script>
+    <script src="assets/js/layout.js"></script>
+    <script src="assets/js/professeurs.js"></script>
+</body>
+</html>
