@@ -4,22 +4,24 @@
     <meta charset="UTF-8">
     <title>Gérer les Étudiants</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
     <div id="page-content">
         <h1 class="text-3xl font-bold text-gray-800 mb-6">Gestion des Étudiants</h1>
         
-        <div class="bg-white p-4 rounded-lg shadow-md mb-6 flex space-x-4">
+        <div class="bg-white p-4 rounded-lg shadow-md mb-6 flex items-center space-x-4">
             <div>
                 <label for="filiere-filter" class="block text-sm font-medium text-gray-700">Filtrer par Filière</label>
                 <select id="filiere-filter" class="mt-1 block w-full pl-3 pr-10 py-2 border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"></select>
             </div>
-            <button id="filter-btn" class="self-end bg-blue-500 text-white px-4 py-2 rounded">Filtrer</button>
+            <button id="filter-btn" class="self-end bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Filtrer</button>
         </div>
 
         <div class="bg-white p-4 rounded-lg shadow-md">
             <div id="etudiants-table" class="overflow-x-auto">
-                </div>
+                <p>Chargement des étudiants...</p>
+            </div>
         </div>
     </div>
 

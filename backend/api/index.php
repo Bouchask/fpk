@@ -16,8 +16,8 @@ $id = $parts[1] ?? null;
 $relation = $parts[2] ?? null;
 
 switch ($resource) {
-    case 'admin':
-        require __DIR__ . '/admin.php';
+    case 'login': // NOUVELLE ROUTE DE CONNEXION
+        require __DIR__ . '/login.php';
         break;
         
     case 'demande':

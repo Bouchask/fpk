@@ -1,43 +1,43 @@
 <?php
-// backend/api/auth.php
-
+// backend/api/auth.php (Mis à jour)
 require_once __DIR__ . '/../vendor/autoload.php';
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
 
-// Clé secrète. Gardez-la en sécurité et ne la partagez jamais.
-define('JWT_SECRET', 'yahya bien');
+define('JWT_SECRET', 'VOTRE_VRAIE_CLE_SECRETE_BEAUCOUP_PLUS_LONGUE');
 
-function createToken($admin) {
+function createToken(array $user, string $userType) {
     $payload = [
-        'iss' => "http://localhost:8000", // Émetteur du token
-        'aud' => "http://localhost:8000", // Audience du token
-        'iat' => time(), // Heure d'émission
-        'exp' => time() + (60 * 60 * 8), // Expiration (ici, 8 heures)
+        'iss' => "http://localhost:8000",
+        'iat' => time(),
+        'exp' => time() + (60 * 60 * 8), // 8 heures
         'data' => [
-            'id_admin' => $admin['id_admin'],
-            'role' => $admin['role']
+            'id' => $user['id_' . $userType],
+            'role' => $user['role'] ?? $userType,
+            'type' => $userType
         ]
     ];
     return JWT::encode($payload, JWT_SECRET, 'HS256');
 }
 
-function verifyAdminToken() {
+function getAuthenticatedUser() {
     $headers = getallheaders();
-    if (!isset($headers['Authorization'])) {
-        http_response_code(401); // Unauthorized
-        echo json_encode(['message' => 'Token d\'accès manquant.']);
-        exit();
-    }
-
+    if (!isset($headers['Authorization'])) return null;
     try {
         $token = str_replace('Bearer ', '', $headers['Authorization']);
-        $decoded = JWT::decode($token, new Key(JWT_SECRET, 'HS256'));
-        return $decoded->data;
+        return JWT::decode($token, new Key(JWT_SECRET, 'HS256'))->data;
     } catch (Exception $e) {
-        http_response_code(403); // Forbidden
-        echo json_encode(['message' => 'Accès refusé. Token invalide.']);
+        return null;
+    }
+}
+
+function requireAdmin() {
+    $user = getAuthenticatedUser();
+    if (!$user || ($user->role !== 'superadmin' && $user->role !== 'gestionnaire')) {
+        http_response_code(403);
+        echo json_encode(['message' => 'Accès refusé. Droits administrateur requis.']);
         exit();
     }
+    return $user;
 }
 ?>

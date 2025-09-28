@@ -1,4 +1,5 @@
 // frontend/admin/assets/js/login.js
+
 document.getElementById('login-form').addEventListener('submit', async (e) => {
     e.preventDefault();
     const email = document.getElementById('email').value;
@@ -6,10 +7,15 @@ document.getElementById('login-form').addEventListener('submit', async (e) => {
     const errorMessage = document.getElementById('error-message');
 
     try {
-        const response = await fetch('http://localhost:8000/backend/api/admin/login', {
+        // CORRECTION ICI : L'URL pointe vers 'login' et on ajoute le type 'admin'
+        const response = await fetch('http://localhost:8000/backend/api/login', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email: email, mot_de_passe: password })
+            body: JSON.stringify({
+                email: email,
+                password: password, // Note: le backend attend 'password', pas 'mot_de_passe'
+                type: 'admin'
+            })
         });
 
         const data = await response.json();
